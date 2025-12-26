@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brisaflix - Portfolio</title>
+    
+    <!-- Fonte Figtree -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- Babel para compilar JSX no navegador -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Figtree', sans-serif;
+            background-color: #e8e8e8;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Animações customizadas simples */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .animate-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // --- ÍCONES SVG (Substituindo lucide-react para versão standalone) ---
+        const Icon = ({ path, ...props }) => (
+            <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="24" 
+                height="24" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                {...props}
+            >
+                {path}
+            </svg>
+        );
+
+        const Play = (props) => <Icon path={<polygon points="5 3 19 12 5 21 5 3"></polygon>} {...props} />;
+        const Info = (props) => <Icon path={<><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></>} {...props} />;
+        const Plus = (props) => <Icon path={<><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></>} {...props} />;
+        const ThumbsUp = (props) => <Icon path={<path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>} {...props} />;
+        const Search = (props) => <Icon path={<><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></>} {...props} />;
+        const Bell = (props) => <Icon path={<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>} path2={<path d="M13.73 21a2 2 0 0 1-3.46 0"></path>} {...props}><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></Icon>; // Simplificado para props
+        const MenuIcon = (props) => <Icon path={<><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></>} {...props} />;
+        const XIcon = (props) => <Icon path={<><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></>} {...props} />;
+        const Github = (props) => <Icon path={<path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>} {...props} />;
+        const Linkedin = (props) => <Icon path={<><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></>} {...props} />;
+        const Monitor = (props) => <Icon path={<><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></>} {...props} />;
+        const Code = (props) => <Icon path={<><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></>} {...props} />;
+        const ChevronRight = (props) => <Icon path={<polyline points="9 18 15 12 9 6"></polyline>} {...props} />;
+        const ChevronLeft = (props) => <Icon path={<polyline points="15 18 9 12 15 6"></polyline>} {...props} />;
+
+
+        // --- PALETA DE CORES BRISAFLIX (TEMA CLARO) ---
+        const COLORS = {
+            primary: '#2242D4', 
+            secondary: '#FF7E05',
+            background: '#e8e8e8',
+            cardBg: '#ffffff',
+            text: '#1e293b',
+            textDim: '#64748b',
+        };
+
+        // --- DADOS ---
+        const featuredProject = {
+            id: 0,
+            title: "EcoTrack Mobile",
+            subtitle: "O Futuro da Sustentabilidade",
+            description: "Em um futuro onde cada byte conta, EcoTrack surge como a única esperança para monitorar a pegada de carbono digital. Uma jornada épica através de interfaces limpas e código otimizado.",
+            longDescription: "O EcoTrack Mobile não é apenas um app, é uma revolução verde no seu bolso. Desenvolvido para transformar hábitos diários, este projeto utiliza geolocalização avançada e gamificação para incentivar escolhas sustentáveis. O desafio foi criar uma experiência fluida (60fps) mesmo processando grandes volumes de dados ambientais em tempo real.",
+            match: "98% Relevante",
+            year: "2024",
+            tags: ["Mobile", "React Native", "UX Design"],
+            image: "bg-gradient-to-r from-blue-600 to-indigo-600",
+            cast: ["React Native", "Redux", "Node.js", "Google Maps API"],
+            director: "Dev Senior da Silva",
+            genre: "Sustentabilidade / Tecnologia"
+        };
+
+        const categories = [
+            {
+                title: "Minha Lista (Projetos Recentes)",
+                items: [
+                    { 
+                        id: 1, 
+                        title: "Fintech Dashboard", 
+                        match: "95%", 
+                        duration: "Frontend", 
+                        image: "bg-blue-900",
+                        description: "Uma visão completa das suas finanças. Gráficos em tempo real e segurança de nível bancário.",
+                        techs: ["React", "Recharts", "TypeScript"]
+                    },
+                    { 
+                        id: 2, 
+                        title: "Delivery App UI", 
+                        match: "90%", 
+                        duration: "UX/UI", 
+                        image: "bg-indigo-900",
+                        description: "A fome não espera. Uma interface desenhada para converter cliques em pedidos em segundos.",
+                        techs: ["Figma", "Prototipagem", "User Flow"]
+                    },
+                    { 
+                        id: 3, 
+                        title: "E-commerce API", 
+                        match: "85%", 
+                        duration: "Backend", 
+                        image: "bg-blue-800",
+                        description: "O motor invisível que processa milhares de transações sem perder um único centavo.",
+                        techs: ["Node.js", "Express", "MongoDB", "Docker"]
+                    },
+                    { 
+                        id: 4, 
+                        title: "Chatbot AI", 
+                        match: "99%", 
+                        duration: "Fullstack", 
+                        image: "bg-indigo-800",
+                        description: "Ele aprende, ele responde, ele resolve. O atendimento ao cliente nunca mais será o mesmo.",
+                        techs: ["Python", "OpenAI API", "React", "Socket.io"]
+                    },
+                ]
+            },
+            {
+                title: "Em Alta: Web Development",
+                items: [
+                    { id: 5, title: "Landing Page Pro", match: "92%", duration: "React", image: "bg-blue-600", description: "Conversão máxima com design minimalista.", techs: ["React", "Tailwind"] },
+                    { id: 6, title: "Blog CMS", match: "88%", duration: "Next.js", image: "bg-indigo-600", description: "Conteúdo gerenciável com performance estática.", techs: ["Next.js", "Sanity.io"] },
+                    { id: 7, title: "SaaS Starter", match: "94%", duration: "Typescript", image: "bg-sky-600", description: "O kit inicial para sua próxima startup bilionária.", techs: ["TypeScript", "Stripe"] },
+                ]
+            },
+            {
+                title: "Originais Brisa (Design System)",
+                items: [
+                    { id: 8, title: "Atomic Design", match: "100%", duration: "Figma", image: "bg-orange-600", description: "A biblioteca visual que mantém tudo coeso.", techs: ["Figma", "Storybook"] },
+                    { id: 9, title: "Icon Set v2", match: "96%", duration: "Illustrator", image: "bg-amber-600", description: "400+ ícones vetoriais perfeitos em qualquer tamanho.", techs: ["Illustrator", "SVG"] },
+                ]
+            }
+        ];
+
+        // --- COMPONENTE PRINCIPAL ---
+        function BrisaflixPortfolio() {
+            const [isScrolled, setIsScrolled] = useState(false);
+            const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+            const [modalOpen, setModalOpen] = useState(false);
+            const [selectedProject, setSelectedProject] = useState(null);
+            const [notification, setNotification] = useState(null);
+
+            useEffect(() => {
+                const handleScroll = () => {
+                    setIsScrolled(window.scrollY > 0);
+                };
+                window.addEventListener("scroll", handleScroll);
+                return () => window.removeEventListener("scroll", handleScroll);
+            }, []);
+
+            const showNotification = (message) => {
+                setNotification(message);
+                setTimeout(() => setNotification(null), 3000);
+            };
+
+            const openModal = (project) => {
+                setSelectedProject(project);
+                setModalOpen(true);
+                document.body.style.overflow = 'hidden';
+            };
+
+            const closeModal = () => {
+                setModalOpen(false);
+                document.body.style.overflow = 'auto';
+            };
+
+            const ProjectModal = () => {
+                if (!modalOpen || !selectedProject) return null;
+
+                return (
+                    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 backdrop-blur-sm p-0 md:p-4 animate-in">
+                        <div className="bg-white w-full h-full md:h-auto md:max-h-[90vh] md:max-w-3xl md:rounded-xl overflow-y-auto relative shadow-2xl flex flex-col">
+                            
+                            <button 
+                                onClick={closeModal}
+                                className="absolute top-4 right-4 z-20 bg-black/50 p-2 rounded-full text-white hover:bg-black/70 transition-colors"
+                            >
+                                <XIcon size={20} />
+                            </button>
+                            
+                            <div className={`w-full aspect-video md:h-80 ${selectedProject.image} relative flex-shrink-0`}>
+                                <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent"></div>
+                                <div className="absolute bottom-4 left-4 md:bottom-8 md:left-8 pr-4">
+                                    <h2 className="text-3xl md:text-4xl font-black text-slate-800 mb-2 leading-tight">
+                                        {selectedProject.title}
+                                    </h2>
+                                    <div className="flex flex-wrap items-center gap-2 md:gap-3">
+                                        <span className="bg-[#2242D4] text-white px-2 py-0.5 rounded text-xs md:text-sm font-bold">
+                                            {selectedProject.match}
+                                        </span>
+                                        <span className="text-slate-600 font-medium text-xs md:text-sm">
+                                            {selectedProject.year || "2024"}
+                                        </span>
+                                        <span className="border border-slate-400 px-1 rounded text-[10px] md:text-xs text-slate-500 font-bold">HD</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="p-4 md:p-8 flex-1">
+                                <div className="flex flex-col md:grid md:grid-cols-3 gap-6 md:gap-8">
+                                    <div className="md:col-span-2 space-y-4">
+                                        <div className="flex items-center gap-3 mb-4">
+                                            <button 
+                                                onClick={() => {
+                                                    showNotification(`Iniciando demo de: ${selectedProject.title}`);
+                                                    closeModal();
+                                                }}
+                                                className="flex-1 bg-[#2242D4] text-white py-3 md:py-2 rounded-md font-bold hover:bg-[#1a33a8] transition-colors flex items-center justify-center gap-2 text-sm md:text-base"
+                                            >
+                                                <Play size={20} fill="white" /> Assistir Demo
+                                            </button>
+                                            <button 
+                                                onClick={() => showNotification("Adicionado à Minha Lista")}
+                                                className="p-3 md:p-2 border border-slate-300 rounded-full hover:border-[#FF7E05] hover:text-[#FF7E05] transition-colors"
+                                            >
+                                                <Plus size={20} />
+                                            </button>
+                                            <button 
+                                                onClick={() => showNotification("Projeto curtido!")}
+                                                className="p-3 md:p-2 border border-slate-300 rounded-full hover:border-[#FF7E05] hover:text-[#FF7E05] transition-colors"
+                                            >
+                                                <ThumbsUp size={20} />
+                                            </button>
+                                        </div>
+
+                                        <p className="text-slate-600 text-sm md:text-base leading-relaxed">
+                                            {selectedProject.longDescription || selectedProject.description}
+                                        </p>
+                                    </div>
+
+                                    <div className="md:col-span-1 text-sm space-y-4 border-t md:border-t-0 pt-4 md:pt-0 border-slate-100">
+                                        <div>
+                                            <span className="block text-slate-400 font-medium text-xs mb-1">Tecnologias:</span>
+                                            <div className="flex flex-wrap gap-1">
+                                                {(selectedProject.techs || selectedProject.cast || selectedProject.tags || []).map(tech => (
+                                                    <span key={tech} className="text-slate-800 font-medium hover:underline cursor-pointer bg-slate-100 px-2 py-0.5 rounded-md text-xs">
+                                                        {tech}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <span className="block text-slate-400 font-medium text-xs mb-1">Gênero:</span>
+                                            <span className="text-slate-800 font-medium">
+                                                {selectedProject.genre || "Desenvolvimento Web"}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span className="block text-slate-400 font-medium text-xs mb-1">Direção:</span>
+                                            <span className="text-slate-800 font-medium">
+                                                João Brisa
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            };
+
+            const Navbar = () => (
+                <nav className={`fixed top-0 w-full z-50 transition-all duration-300 px-4 md:px-12 py-3 md:py-4 flex items-center justify-between ${
+                    isScrolled ? 'bg-[#e8e8e8]/95 backdrop-blur-md shadow-md' : 'bg-transparent bg-gradient-to-b from-black/60 to-transparent'
+                }`}>
+                    <div className="flex items-center gap-4 md:gap-8">
+                        <button 
+                            className="md:hidden text-white drop-shadow-md"
+                            onClick={() => setIsMobileMenuOpen(true)}
+                        >
+                            <MenuIcon size={28} color={isScrolled ? COLORS.primary : 'white'} />
+                        </button>
+
+                        <h1 
+                            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                            className={`font-black tracking-tighter cursor-pointer select-none transition-colors ${isScrolled ? 'text-[#2242D4]' : 'text-white'}`}
+                            style={{ 
+                                fontSize: 'clamp(24px, 4vw, 31px)',
+                                textShadow: isScrolled ? 'none' : '0 2px 4px rgba(0,0,0,0.5)' 
+                            }}
+                        >
+                            BRISA<span style={{ color: COLORS.secondary }}>FLIX</span>
+                        </h1>
+                        
+                        <div className={`hidden md:flex items-center gap-6 font-medium transition-colors ${isScrolled ? 'text-slate-600' : 'text-slate-200'}`} style={{ fontSize: '14px' }}>
+                            <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className={`font-bold hover:text-[#FF7E05] transition-colors ${isScrolled ? 'text-slate-900' : 'text-white'}`}>Início</button>
+                            <button onClick={() => showNotification("Filtrando: Apenas Aplicativos Móveis")} className="hover:text-[#FF7E05] transition-colors">Séries (Apps)</button>
+                            <button onClick={() => showNotification("Filtrando: Apenas Websites e Sistemas")} className="hover:text-[#FF7E05] transition-colors">Filmes (Sites)</button>
+                            <button onClick={() => showNotification("Acessando sua lista de favoritos...")} className="hover:text-[#FF7E05] transition-colors">Minha Lista</button>
+                        </div>
+                    </div>
+
+                    <div className={`flex items-center gap-4 md:gap-6 transition-colors ${isScrolled ? 'text-slate-600' : 'text-white'}`}>
+                        <Search onClick={() => showNotification("Busca iniciada...")} className="w-5 h-5 md:w-6 md:h-6 cursor-pointer hover:text-[#FF7E05] transition-colors" />
+                        <Bell onClick={() => showNotification("Nenhuma notificação nova")} className="w-5 h-5 md:w-6 md:h-6 cursor-pointer hover:text-[#FF7E05] transition-colors" />
+                        <div onClick={() => showNotification("Perfil do Desenvolvedor: João Brisa")} className="flex items-center gap-2 cursor-pointer group">
+                            <div className="w-7 h-7 md:w-8 md:h-8 rounded flex items-center justify-center font-bold text-[10px] md:text-xs transition-all group-hover:ring-2 bg-[#2242D4] text-white group-hover:ring-[#FF7E05]">
+                                DEV
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className={`fixed inset-0 z-50 bg-black/50 backdrop-blur-sm transition-opacity duration-300 md:hidden ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={() => setIsMobileMenuOpen(false)}>
+                        <div 
+                            className={`absolute left-0 top-0 h-full w-[70%] max-w-xs bg-[#e8e8e8] shadow-2xl transform transition-transform duration-300 flex flex-col p-6 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                           <div className="flex items-center justify-between mb-8">
+                             <div className="font-black text-2xl text-[#2242D4]">
+                                BRISA<span className="text-[#FF7E05]">FLIX</span>
+                             </div>
+                             <button onClick={() => setIsMobileMenuOpen(false)} className="text-slate-500">
+                               <XIcon size={24} />
+                             </button>
+                           </div>
+
+                           <div className="flex flex-col gap-6 text-slate-700 font-bold text-lg">
+                              <button onClick={() => setIsMobileMenuOpen(false)} className="text-left hover:text-[#2242D4]">Início</button>
+                              <button onClick={() => { showNotification("Abrindo Projetos..."); setIsMobileMenuOpen(false); }} className="text-left hover:text-[#2242D4]">Séries (Apps)</button>
+                              <button onClick={() => { showNotification("Filtrando Filmes..."); setIsMobileMenuOpen(false); }} className="text-left hover:text-[#2242D4]">Filmes (Sites)</button>
+                              <button onClick={() => { showNotification("Minha Lista"); setIsMobileMenuOpen(false); }} className="text-left hover:text-[#2242D4]">Minha Lista</button>
+                              <div className="h-px bg-slate-300 my-2"></div>
+                              <button onClick={() => setIsMobileMenuOpen(false)} className="text-left text-base font-normal text-slate-500">Configurações</button>
+                              <button onClick={() => setIsMobileMenuOpen(false)} className="text-left text-base font-normal text-slate-500">Sair</button>
+                           </div>
+                        </div>
+                    </div>
+                </nav>
+            );
+
+            const Hero = () => (
+                <div className="relative h-[85vh] md:h-[90vh] w-full text-white overflow-hidden">
+                    <div className="absolute inset-0 bg-slate-900">
+                        <div className="w-full h-full bg-[url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
+                        <div 
+                           className="absolute inset-0 opacity-90"
+                           style={{ 
+                             background: `linear-gradient(90deg, ${COLORS.primary} 0%, ${COLORS.primary}CC 60%, transparent 100%)` 
+                           }}
+                        ></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#e8e8e8] via-transparent to-transparent md:hidden"></div>
+                    </div>
+
+                    <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center px-6 md:px-12 pt-16 md:pt-0">
+                        <div className="max-w-2xl space-y-4 animate-in">
+                            <div className="flex items-center gap-2 font-bold tracking-widest text-xs md:text-sm">
+                                <span style={{ color: COLORS.secondary }}>B R I S A</span>
+                                <span className="text-white/80">O R I G I N A L</span>
+                            </div>
+                            
+                            <h1 
+                                className="font-black leading-none tracking-tight drop-shadow-md text-white"
+                                style={{ fontSize: 'clamp(32px, 6vw, 64px)' }}
+                            >
+                                {featuredProject.title}
+                            </h1>
+
+                            <div className="flex flex-wrap items-center gap-3 md:gap-4 font-medium text-sm md:text-lg">
+                                <span className="font-bold bg-white text-[#2242D4] px-2 py-0.5 rounded-sm shadow-sm text-xs md:text-sm">{featuredProject.match}</span>
+                                <span className="text-white/90">{featuredProject.year}</span>
+                                <span className="border border-white/40 px-2 py-0.5 rounded text-[10px] md:text-xs text-white bg-black/10">FULL HD</span>
+                                <span className="text-white flex items-center gap-1 text-xs md:text-sm">
+                                    <Code size={14} className="md:w-4 md:h-4" /> {featuredProject.tags[0]} • {featuredProject.tags[1]}
+                                </span>
+                            </div>
+                            
+                            <p className="text-white/90 leading-relaxed drop-shadow-sm max-w-lg font-medium text-sm md:text-base line-clamp-3 md:line-clamp-none">
+                                {featuredProject.description}
+                            </p>
+                            
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 md:gap-4 pt-4 w-full sm:w-auto">
+                                <button 
+                                    onClick={() => showNotification("Reproduzindo Demo do EcoTrack...")}
+                                    className="w-full sm:w-auto flex items-center justify-center gap-3 px-6 md:px-8 py-3 md:py-3.5 rounded font-bold hover:brightness-110 transition-all shadow-lg hover:shadow-orange-500/30 active:scale-95 text-white text-sm md:text-base"
+                                    style={{ backgroundColor: COLORS.secondary }}
+                                >
+                                    <Play fill="white" size={20} /> 
+                                    Ver Projeto
+                                </button>
+                                
+                                <button 
+                                    onClick={() => openModal(featuredProject)}
+                                    className="w-full sm:w-auto flex items-center justify-center gap-3 px-6 md:px-8 py-3 md:py-3.5 rounded bg-white/20 text-white font-bold hover:bg-white/30 transition-colors backdrop-blur-md border border-white/30 text-sm md:text-base"
+                                >
+                                    <Info size={20} />
+                                    Mais Informações
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const ProjectRow = ({ title, items }) => (
+                <div className="mb-8 md:mb-12 px-4 md:px-12 group">
+                    <h2 
+                        className="font-bold text-slate-800 mb-3 md:mb-4 flex items-center gap-2 group-hover:text-[#2242D4] transition-colors cursor-pointer text-xl md:text-3xl"
+                        onClick={() => showNotification(`Explorando categoria: ${title}`)}
+                    >
+                        {title} 
+                        <ChevronRight className="opacity-0 group-hover:opacity-100 transition-all duration-300 text-[#FF7E05] -ml-2 group-hover:ml-0 group-hover:translate-x-1 hidden md:block" size={30} />
+                        <ChevronRight className="text-[#FF7E05] md:hidden" size={20} />
+                    </h2>
+                    
+                    <div className="relative group/slider">
+                        <button className="hidden md:flex absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[#e8e8e8] to-transparent z-20 items-center justify-center opacity-0 group-hover/slider:opacity-100 transition-all text-slate-800">
+                            <ChevronLeft size={40} className="drop-shadow-lg" />
+                        </button>
+                        <button className="hidden md:flex absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#e8e8e8] to-transparent z-20 items-center justify-center opacity-0 group-hover/slider:opacity-100 transition-all text-slate-800">
+                            <ChevronRight size={40} className="drop-shadow-lg" />
+                        </button>
+
+                        <div className="flex gap-3 md:gap-4 overflow-x-auto pb-6 scrollbar-hide snap-x snap-mandatory px-1 py-1 -mx-1 md:mx-0">
+                            {items.map((item) => (
+                                <div 
+                                    key={item.id} 
+                                    className="flex-none w-[160px] sm:w-[200px] md:w-[280px] aspect-video rounded-lg md:rounded-xl relative overflow-hidden cursor-pointer transition-all duration-300 md:hover:scale-110 md:hover:z-30 md:hover:shadow-2xl group/card snap-start bg-white shadow-sm border border-slate-200"
+                                    onClick={() => openModal(item)}
+                                >
+                                    <div className={`w-full h-full ${item.image} flex items-center justify-center`}>
+                                        <span className="text-xl md:text-3xl font-black text-white/20 uppercase tracking-widest">{item.duration}</span>
+                                    </div>
+
+                                    <div className="hidden md:flex absolute inset-0 bg-white opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 flex-col p-4 shadow-xl border-2 border-[#2242D4]">
+                                        <div className={`h-24 w-full rounded-lg mb-2 ${item.image} opacity-80`}></div>
+
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <button 
+                                                onClick={(e) => { e.stopPropagation(); showNotification(`Reproduzindo: ${item.title}`); }}
+                                                className="w-8 h-8 rounded-full flex items-center justify-center transition-colors hover:brightness-110 shadow-md"
+                                                style={{ backgroundColor: COLORS.primary }}
+                                            >
+                                                <Play size={14} fill="white" className="text-white ml-0.5" />
+                                            </button>
+                                            <button 
+                                                onClick={(e) => { e.stopPropagation(); showNotification("Adicionado à Lista"); }}
+                                                className="w-8 h-8 rounded-full border-2 border-slate-300 flex items-center justify-center hover:border-[#FF7E05] hover:text-[#FF7E05] text-slate-400"
+                                            >
+                                                <Plus size={16} />
+                                            </button>
+                                            <button 
+                                                onClick={(e) => { e.stopPropagation(); openModal(item); }}
+                                                className="w-8 h-8 rounded-full border-2 border-slate-300 flex items-center justify-center hover:border-[#FF7E05] hover:text-[#FF7E05] text-slate-400 ml-auto"
+                                            >
+                                                <Info size={16} />
+                                            </button>
+                                        </div>
+                                        
+                                        <h3 className="font-bold text-slate-800 leading-tight mb-1 text-base">
+                                            {item.title}
+                                        </h3>
+                                        
+                                        <div className="flex items-center gap-2 font-semibold text-xs">
+                                            <span className="text-[#FF7E05]">{item.match}</span>
+                                            <span className="border border-slate-300 px-1 rounded text-slate-500">HD</span>
+                                        </div>
+                                        
+                                        <div className="mt-auto flex gap-2 pt-2 border-t border-slate-100 text-xs">
+                                            {(item.techs || []).slice(0, 2).map((tech, i) => (
+                                                <span key={i} className="text-slate-400 flex items-center gap-1">{tech}</span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+
+            return (
+                <div className="min-h-screen text-slate-800 overflow-x-hidden selection:bg-[#FF7E05] selection:text-white relative">
+                    {notification && (
+                        <div className="fixed bottom-4 left-4 right-4 md:left-auto md:bottom-8 md:right-8 z-[70] bg-[#1e293b] text-white px-6 py-4 rounded-lg shadow-xl animate-in flex items-center gap-3 justify-center md:justify-start">
+                            <div className="w-2 h-2 rounded-full bg-[#FF7E05]"></div>
+                            <span className="text-sm font-medium">{notification}</span>
+                        </div>
+                    )}
+
+                    <ProjectModal />
+                    <Navbar />
+                    <Hero />
+                    
+                    <div className="-mt-16 md:-mt-24 relative z-10 pb-10 md:pb-20 space-y-2 md:space-y-4">
+                        {categories.map((cat, index) => (
+                            <ProjectRow key={index} title={cat.title} items={cat.items} />
+                        ))}
+                    </div>
+
+                    <footer className="max-w-4xl mx-auto px-6 md:px-12 py-10 md:py-16 text-slate-500 border-t border-slate-300/50 mt-4 md:mt-10" style={{ fontSize: '14px' }}>
+                        <div className="flex gap-6 mb-6 justify-center md:justify-start">
+                            <Github onClick={() => showNotification("Abrindo GitHub...")} className="w-6 h-6 hover:text-[#2242D4] cursor-pointer transition-colors" />
+                            <Linkedin onClick={() => showNotification("Abrindo LinkedIn...")} className="w-6 h-6 hover:text-[#2242D4] cursor-pointer transition-colors" />
+                            <Monitor onClick={() => showNotification("Abrindo Portfolio Pessoal...")} className="w-6 h-6 hover:text-[#2242D4] cursor-pointer transition-colors" />
+                        </div>
+                        
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 text-center md:text-left">
+                            <button onClick={() => showNotification("Página: Links Úteis")} className="hover:underline hover:text-[#2242D4]">Links Úteis</button>
+                            <button onClick={() => showNotification("Página: Sobre o Dev")} className="hover:underline hover:text-[#2242D4]">Sobre o Dev</button>
+                            <button onClick={() => showNotification("Email copiado!")} className="hover:underline hover:text-[#2242D4]">Contato</button>
+                            <button onClick={() => showNotification("Termos aceitos")} className="hover:underline hover:text-[#2242D4]">Termos de Uso</button>
+                            <button onClick={() => showNotification("Política de Privacidade")} className="hover:underline hover:text-[#2242D4]">Privacidade</button>
+                            <button onClick={() => showNotification("Configurações salvas")} className="hover:underline hover:text-[#2242D4]">Cookies</button>
+                            <button onClick={() => showNotification("Assessoria")} className="hover:underline hover:text-[#2242D4]">Imprensa</button>
+                            <button onClick={() => showNotification("Seja um sócio")} className="hover:underline hover:text-[#2242D4]">Sócios</button>
+                        </div>
+
+                        <div className="flex flex-col items-center md:items-start">
+                            <button 
+                                onClick={() => showNotification("Código de Serviço: 842-321")}
+                                className="border border-slate-400 px-4 py-2 hover:bg-slate-200 hover:border-slate-500 transition-all mb-4 text-slate-600 text-xs md:text-sm"
+                            >
+                                Código de Serviço
+                            </button>
+                            
+                            <p className="text-slate-400 text-center md:text-left text-xs md:text-sm">
+                                © 2024 Brisaflix Portfolio Inc.
+                                <br />
+                                Identidade Visual: <span className="font-bold text-[#2242D4]">Blue #2242D4</span> & <span style={{ color: COLORS.secondary }} className="font-bold">Laranja #FF7E05</span>.
+                            </p>
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<BrisaflixPortfolio />);
+    </script>
+</body>
+</html>
