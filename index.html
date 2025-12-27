@@ -217,7 +217,7 @@
                                 <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent"></div>
                                 <div className="absolute bottom-4 left-4 md:bottom-8 md:left-8 pr-4">
                                     <h2 className="text-3xl md:text-4xl font-black text-slate-800 mb-2 leading-tight">
-                                        {selectedProject.title}
+                                            {selectedProject.title}
                                     </h2>
                                     <div className="flex flex-wrap items-center gap-2 md:gap-3">
                                         <span className="bg-[#2242D4] text-white px-2 py-0.5 rounded text-xs md:text-sm font-bold">
@@ -306,21 +306,36 @@
                             <MenuIcon size={28} color={isScrolled ? COLORS.primary : 'white'} />
                         </button>
 
-                        <h1 
+                        <img 
+                            src="https://raw.githubusercontent.com/gilnei-ship-it/brisaflix/main/imgens/Logo%20TDG.pptx.png"
+                            alt="Brisaflix Logo"
                             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                            className={`font-black tracking-tighter cursor-pointer select-none transition-colors ${isScrolled ? 'text-[#2242D4]' : 'text-white'}`}
-                            style={{ 
-                                fontSize: 'clamp(24px, 4vw, 31px)',
-                                textShadow: isScrolled ? 'none' : '0 2px 4px rgba(0,0,0,0.5)' 
-                            }}
-                        >
-                            BRISA<span style={{ color: COLORS.secondary }}>FLIX</span>
-                        </h1>
+                            className="h-12 md:h-20 cursor-pointer select-none object-contain transition-all duration-300 hover:scale-105 hover:brightness-0 hover:invert active:scale-95 active:brightness-0 active:invert"
+                        />
                         
                         <div className={`hidden md:flex items-center gap-6 font-medium transition-colors ${isScrolled ? 'text-slate-600' : 'text-slate-200'}`} style={{ fontSize: '14px' }}>
                             <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className={`font-bold hover:text-[#FF7E05] transition-colors ${isScrolled ? 'text-slate-900' : 'text-white'}`}>Início</button>
-                            <button onClick={() => showNotification("Filtrando: Apenas Aplicativos Móveis")} className="hover:text-[#FF7E05] transition-colors">Séries (Apps)</button>
-                            <button onClick={() => showNotification("Filtrando: Apenas Websites e Sistemas")} className="hover:text-[#FF7E05] transition-colors">Filmes (Sites)</button>
+                            
+                            {/* Link UniBrisa */}
+                            <a 
+                                href="https://brisanet.teste.konviva.com.br/lms/#/portal" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="hover:text-[#FF7E05] transition-colors"
+                            >
+                                UniBrisa
+                            </a>
+                            
+                            {/* Link Universo Brisa */}
+                            <a 
+                                href="https://grupobrisanet.mybeehome.com/beezz" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="hover:text-[#FF7E05] transition-colors"
+                            >
+                                Universo Brisa
+                            </a>
+                            
                             <button onClick={() => showNotification("Acessando sua lista de favoritos...")} className="hover:text-[#FF7E05] transition-colors">Minha Lista</button>
                         </div>
                     </div>
@@ -341,9 +356,11 @@
                             onClick={(e) => e.stopPropagation()}
                         >
                            <div className="flex items-center justify-between mb-8">
-                             <div className="font-black text-2xl text-[#2242D4]">
-                                BRISA<span className="text-[#FF7E05]">FLIX</span>
-                             </div>
+                             <img 
+                                src="https://raw.githubusercontent.com/gilnei-ship-it/brisaflix/main/imgens/Logo%20TDG.pptx.png"
+                                alt="Brisaflix Logo"
+                                className="h-12 object-contain"
+                             />
                              <button onClick={() => setIsMobileMenuOpen(false)} className="text-slate-500">
                                <XIcon size={24} />
                              </button>
@@ -351,8 +368,29 @@
 
                            <div className="flex flex-col gap-6 text-slate-700 font-bold text-lg">
                               <button onClick={() => setIsMobileMenuOpen(false)} className="text-left hover:text-[#2242D4]">Início</button>
-                              <button onClick={() => { showNotification("Abrindo Projetos..."); setIsMobileMenuOpen(false); }} className="text-left hover:text-[#2242D4]">Séries (Apps)</button>
-                              <button onClick={() => { showNotification("Filtrando Filmes..."); setIsMobileMenuOpen(false); }} className="text-left hover:text-[#2242D4]">Filmes (Sites)</button>
+                              
+                              {/* Link UniBrisa Mobile */}
+                              <a 
+                                  href="https://brisanet.teste.konviva.com.br/lms/#/portal" 
+                                  target="_blank" 
+                                  rel="noopener noreferrer"
+                                  onClick={() => setIsMobileMenuOpen(false)} 
+                                  className="text-left hover:text-[#2242D4]"
+                              >
+                                  UniBrisa
+                              </a>
+                              
+                              {/* Link Universo Brisa Mobile */}
+                              <a 
+                                  href="https://grupobrisanet.mybeehome.com/beezz" 
+                                  target="_blank" 
+                                  rel="noopener noreferrer"
+                                  onClick={() => setIsMobileMenuOpen(false)} 
+                                  className="text-left hover:text-[#2242D4]"
+                              >
+                                  Universo Brisa
+                              </a>
+                              
                               <button onClick={() => { showNotification("Minha Lista"); setIsMobileMenuOpen(false); }} className="text-left hover:text-[#2242D4]">Minha Lista</button>
                               <div className="h-px bg-slate-300 my-2"></div>
                               <button onClick={() => setIsMobileMenuOpen(false)} className="text-left text-base font-normal text-slate-500">Configurações</button>
@@ -521,40 +559,6 @@
                             <ProjectRow key={index} title={cat.title} items={cat.items} />
                         ))}
                     </div>
-
-                    <footer className="max-w-4xl mx-auto px-6 md:px-12 py-10 md:py-16 text-slate-500 border-t border-slate-300/50 mt-4 md:mt-10" style={{ fontSize: '14px' }}>
-                        <div className="flex gap-6 mb-6 justify-center md:justify-start">
-                            <Github onClick={() => showNotification("Abrindo GitHub...")} className="w-6 h-6 hover:text-[#2242D4] cursor-pointer transition-colors" />
-                            <Linkedin onClick={() => showNotification("Abrindo LinkedIn...")} className="w-6 h-6 hover:text-[#2242D4] cursor-pointer transition-colors" />
-                            <Monitor onClick={() => showNotification("Abrindo Portfolio Pessoal...")} className="w-6 h-6 hover:text-[#2242D4] cursor-pointer transition-colors" />
-                        </div>
-                        
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 text-center md:text-left">
-                            <button onClick={() => showNotification("Página: Links Úteis")} className="hover:underline hover:text-[#2242D4]">Links Úteis</button>
-                            <button onClick={() => showNotification("Página: Sobre o Dev")} className="hover:underline hover:text-[#2242D4]">Sobre o Dev</button>
-                            <button onClick={() => showNotification("Email copiado!")} className="hover:underline hover:text-[#2242D4]">Contato</button>
-                            <button onClick={() => showNotification("Termos aceitos")} className="hover:underline hover:text-[#2242D4]">Termos de Uso</button>
-                            <button onClick={() => showNotification("Política de Privacidade")} className="hover:underline hover:text-[#2242D4]">Privacidade</button>
-                            <button onClick={() => showNotification("Configurações salvas")} className="hover:underline hover:text-[#2242D4]">Cookies</button>
-                            <button onClick={() => showNotification("Assessoria")} className="hover:underline hover:text-[#2242D4]">Imprensa</button>
-                            <button onClick={() => showNotification("Seja um sócio")} className="hover:underline hover:text-[#2242D4]">Sócios</button>
-                        </div>
-
-                        <div className="flex flex-col items-center md:items-start">
-                            <button 
-                                onClick={() => showNotification("Código de Serviço: 842-321")}
-                                className="border border-slate-400 px-4 py-2 hover:bg-slate-200 hover:border-slate-500 transition-all mb-4 text-slate-600 text-xs md:text-sm"
-                            >
-                                Código de Serviço
-                            </button>
-                            
-                            <p className="text-slate-400 text-center md:text-left text-xs md:text-sm">
-                                © 2024 Brisaflix Portfolio Inc.
-                                <br />
-                                Identidade Visual: <span className="font-bold text-[#2242D4]">Blue #2242D4</span> & <span style={{ color: COLORS.secondary }} className="font-bold">Laranja #FF7E05</span>.
-                            </p>
-                        </div>
-                    </footer>
                 </div>
             );
         }
