@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brisaflix - Portfolio</title>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/gilnei-ship-it/brisaflix/main/imgens/favicon.png">
+
     <!-- Fonte Figtree -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -310,10 +313,11 @@
                             src="https://raw.githubusercontent.com/gilnei-ship-it/brisaflix/main/imgens/Logo%20TDG.pptx.png"
                             alt="Brisaflix Logo"
                             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                            className="h-12 md:h-20 cursor-pointer select-none object-contain transition-all duration-300 hover:scale-105 hover:brightness-0 hover:invert active:scale-95 active:brightness-0 active:invert"
+                            className="h-10 md:h-14 cursor-pointer select-none object-contain transition-all duration-300 hover:scale-105 hover:brightness-0 hover:invert active:scale-95 active:brightness-0 active:invert"
                         />
                         
-                        <div className={`hidden md:flex items-center gap-6 font-medium transition-colors ${isScrolled ? 'text-slate-600' : 'text-slate-200'}`} style={{ fontSize: '14px' }}>
+                        {/* Removido style={{ fontSize: '14px' }} e adicionado text-sm md:text-base para proporção */}
+                        <div className={`hidden md:flex items-center gap-6 font-medium transition-colors text-sm md:text-base ${isScrolled ? 'text-slate-600' : 'text-slate-200'}`}>
                             <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className={`font-bold hover:text-[#FF7E05] transition-colors ${isScrolled ? 'text-slate-900' : 'text-white'}`}>Início</button>
                             
                             {/* Link UniBrisa */}
@@ -359,7 +363,7 @@
                              <img 
                                 src="https://raw.githubusercontent.com/gilnei-ship-it/brisaflix/main/imgens/Logo%20TDG.pptx.png"
                                 alt="Brisaflix Logo"
-                                className="h-12 object-contain"
+                                className="h-10 object-contain"
                              />
                              <button onClick={() => setIsMobileMenuOpen(false)} className="text-slate-500">
                                <XIcon size={24} />
