@@ -148,7 +148,7 @@
             textDim: '#64748b',
         };
 
-        // --- DADOS ATUALIZADOS COM CAPAS REAIS E NOMES ASSERTIVOS ---
+        // --- DADOS ATUALIZADOS ---
         const featuredProject = {
             id: 0,
             title: "BRISAFLIX Operacional",
@@ -213,7 +213,6 @@
                         title: "Montagem do Conector", 
                         match: "Tutorial", 
                         duration: "Prática", 
-                        // Link corrigido com a codificação correta para 'transcrição'
                         image: "https://raw.githubusercontent.com/gilnei-ship-it/brisaflix/main/imgens/MARIA%20VITORIA%20%20-%20INSPETOR%20DE%20SERVICOS%20DE%20CAMPO(%C3%81udio%20me%20chamo%20Tutorial%2C%20prov%C3%A1vel%20erro%20de%20transcri%C3%A7%C3%A3o%20para%20um%20nome%20pr%C3%B3prio)%20%E2%80%93%20Montagem%20do%20Conector.jpg",
                         description: "Tutorial prático: Decapagem, limpeza e clivagem perfeita. O padrão elimina a atenuação.",
                         techs: ["Fibra", "Conector", "Infraestrutura"],
@@ -229,13 +228,11 @@
                         techs: ["Analyzer", "Interferência", "Ajuste"],
                         director: "Anderson Zacarias"
                     },
-                    // --- VÍDEOS DUPLICADOS/REFORÇO (Usando imagens dos respectivos instrutores) ---
                     { 
                         id: 13, 
                         title: "Segredos da Clivagem", 
                         match: "Técnica", 
                         duration: "Gabarito", 
-                        // Link corrigido
                         image: "https://raw.githubusercontent.com/gilnei-ship-it/brisaflix/main/imgens/MARIA%20VITORIA%20%20-%20INSPETOR%20DE%20SERVICOS%20DE%20CAMPO(%C3%81udio%20me%20chamo%20Tutorial%2C%20prov%C3%A1vel%20erro%20de%20transcri%C3%A7%C3%A3o%20para%20um%20nome%20pr%C3%B3prio)%20%E2%80%93%20Montagem%20do%20Conector.jpg",
                         description: "O segredo do conector perfeito está no gabarito. Aprenda a não errar o corte e evite retorno.",
                         techs: ["Precisão", "Ferramental", "Fibra"],
@@ -291,7 +288,6 @@
                         title: "Redução de Atenuação", 
                         match: "Técnica", 
                         duration: "Padrão", 
-                        // Link corrigido
                         image: "https://raw.githubusercontent.com/gilnei-ship-it/brisaflix/main/imgens/MARIA%20VITORIA%20%20-%20INSPETOR%20DE%20SERVICOS%20DE%20CAMPO(%C3%81udio%20me%20chamo%20Tutorial%2C%20prov%C3%A1vel%20erro%20de%20transcri%C3%A7%C3%A3o%20para%20um%20nome%20pr%C3%B3prio)%20%E2%80%93%20Montagem%20do%20Conector.jpg", 
                         description: "Conector bem feito = Sinal perfeito. Veja como o padrão técnico impacta a qualidade do link.", 
                         techs: ["dBm", "Sinal", "Fibra"],
@@ -327,7 +323,6 @@
                         title: "Boletim Técnico", 
                         match: "Info", 
                         duration: "Atualização", 
-                        // Link corrigido
                         image: "https://raw.githubusercontent.com/gilnei-ship-it/brisaflix/main/imgens/MARIA%20VITORIA%20%20-%20INSPETOR%20DE%20SERVICOS%20DE%20CAMPO(%C3%81udio%20me%20chamo%20Tutorial%2C%20prov%C3%A1vel%20erro%20de%20transcri%C3%A7%C3%A3o%20para%20um%20nome%20pr%C3%B3prio)%20%E2%80%93%20Montagem%20do%20Conector.jpg", 
                         description: "Atualização normativa sobre conectorização. Fique atento às novas ferramentas homologadas.", 
                         techs: ["Homologação", "Material", "Boletim"],
@@ -486,12 +481,12 @@
             const Navbar = () => (
                 <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ease-in-out px-6 md:px-16 ${
                     isScrolled 
-                        ? 'py-3 bg-white/90 backdrop-blur-lg shadow-lg border-b border-gray-200/50' 
+                        ? 'py-3 bg-white/95 backdrop-blur-lg shadow-lg border-b border-gray-200/50' 
                         : 'py-5 bg-gradient-to-b from-black/80 via-black/40 to-transparent'
                 }`}>
                     <div className="flex items-center justify-between">
                         {/* Esquerda: Logo + Menu Desktop */}
-                        <div className="flex items-center gap-8 md:gap-12">
+                        <div className="flex items-center gap-8 md:gap-12 w-full md:w-auto justify-between md:justify-start">
                             <button 
                                 className="md:hidden text-white drop-shadow-md"
                                 onClick={() => setIsMobileMenuOpen(true)}
@@ -537,27 +532,15 @@
                             </div>
                         </div>
 
-                        {/* Direita: Ícones */}
-                        <div className={`flex items-center gap-5 md:gap-7 transition-colors duration-300 ${isScrolled ? 'text-slate-500' : 'text-white'}`}>
-                            <Search onClick={() => showNotification("Pesquisando conteúdo...")} className="w-5 h-5 cursor-pointer hover:text-[#FF7E05] transition-transform hover:scale-110" />
-                            <Bell onClick={() => showNotification("Novos conteúdos disponíveis")} className="w-5 h-5 cursor-pointer hover:text-[#FF7E05] transition-transform hover:scale-110" />
-                            
-                            {/* Perfil do Usuário */}
-                            <div onClick={() => showNotification("Colaborador")} className="flex items-center gap-2 cursor-pointer group relative">
-                                <img 
-                                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop" 
-                                    alt="Perfil" 
-                                    className="w-9 h-9 rounded-md object-cover border-2 border-transparent group-hover:border-[#FF7E05] transition-all shadow-sm"
-                                />
-                                <div className={`w-2.5 h-2.5 bg-green-500 rounded-full absolute -bottom-0.5 -right-0.5 border-2 ${isScrolled ? 'border-white' : 'border-black'}`}></div>
-                            </div>
+                        {/* Direita: Limpa (Removidos ícones de busca, sino e perfil) */}
+                        <div className="hidden md:flex items-center gap-5 md:gap-7 transition-colors duration-300">
                         </div>
                     </div>
 
                     {/* Menu Mobile Lateral (Off-canvas) */}
                     <div className={`fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm transition-opacity duration-300 md:hidden ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={() => setIsMobileMenuOpen(false)}>
                         <div 
-                            className={`absolute left-0 top-0 h-full w-[75%] max-w-xs bg-[#e8e8e8] shadow-2xl transform transition-transform duration-300 flex flex-col p-6 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
+                            className={`absolute left-0 top-0 h-full w-[75%] max-w-xs bg-[#f5f5f5] shadow-2xl transform transition-transform duration-300 flex flex-col p-6 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
                             onClick={(e) => e.stopPropagation()}
                         >
                            <div className="flex items-center justify-between mb-8">
@@ -605,25 +588,36 @@
             );
 
             const Hero = () => (
-                <div className="relative h-[85vh] md:h-[90vh] w-full text-white overflow-hidden">
+                <div className="relative h-[65vh] md:h-[90vh] w-full text-white overflow-hidden">
                     <div className="absolute inset-0 bg-slate-900 overflow-hidden">
-                        {/* Imagem de Fundo com Animação de Zoom (Ken Burns) */}
-                        <div className="w-full h-full animate-zoom bg-cover bg-center" style={{ backgroundImage: "url('https://raw.githubusercontent.com/gilnei-ship-it/brisaflix/main/imgens/data-center-engineer-uses-ai-visualization-tool-on-2025-11-30-14-38-26-utc.jpg')" }}></div>
+                        {/* Imagem de Fundo com Animação de Zoom (Ken Burns) e Posição Otimizada para Mobile */}
+                        <div 
+                            className="w-full h-full animate-zoom bg-cover md:bg-center bg-[center_top]" 
+                            style={{ backgroundImage: "url('https://raw.githubusercontent.com/gilnei-ship-it/brisaflix/main/imgens/data-center-engineer-uses-ai-visualization-tool-on-2025-11-30-14-38-26-utc.jpg')" }}
+                        ></div>
                         
                         {/* Camada de Gradiente estilo Netflix - Azul na esquerda desvanecendo para a direita */}
                         <div 
-                           className="absolute inset-0"
+                           className="hidden md:block absolute inset-0"
                            style={{ 
                              background: `linear-gradient(77deg, ${COLORS.primary} 0%, ${COLORS.primary}D9 30%, transparent 85%)` 
                            }}
                         ></div>
 
+                        {/* Gradiente Mobile: De Baixo para Cima para não cobrir o rosto */}
+                        <div 
+                           className="md:hidden absolute inset-0"
+                           style={{ 
+                             background: `linear-gradient(to top, ${COLORS.primary} 15%, ${COLORS.primary}99 50%, transparent 100%)` 
+                           }}
+                        ></div>
+
                         {/* Gradiente Inferior para conectar com o resto da página */}
-                        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#e8e8e8] to-transparent"></div>
+                        <div className="absolute bottom-0 left-0 right-0 h-24 md:h-32 bg-gradient-to-t from-[#e8e8e8] to-transparent"></div>
                     </div>
 
                     <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center px-6 md:px-12 pt-16 md:pt-0">
-                        <div className="max-w-2xl space-y-4 animate-in">
+                        <div className="max-w-2xl space-y-4 animate-in flex flex-col justify-end h-full md:h-auto pb-10 md:pb-0">
                             <div className="flex items-center gap-2 font-bold tracking-widest text-xs md:text-sm">
                                 <span style={{ color: COLORS.secondary }}>TREINAMENTO</span>
                                 <span className="text-white/80">OPERACIONAL</span>
