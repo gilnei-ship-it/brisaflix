@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brisaflix - Portfolio</title>
+    <title>Brisaflix - Treinamento Operacional</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/gilnei-ship-it/brisaflix/main/imgens/favicon.png">
@@ -51,7 +51,7 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // --- ÍCONES SVG (Substituindo lucide-react para versão standalone) ---
+        // --- ÍCONES SVG ---
         const Icon = ({ path, ...props }) => (
             <svg 
                 xmlns="http://www.w3.org/2000/svg" 
@@ -74,18 +74,14 @@
         const Plus = (props) => <Icon path={<><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></>} {...props} />;
         const ThumbsUp = (props) => <Icon path={<path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>} {...props} />;
         const Search = (props) => <Icon path={<><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></>} {...props} />;
-        const Bell = (props) => <Icon path={<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>} path2={<path d="M13.73 21a2 2 0 0 1-3.46 0"></path>} {...props}><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></Icon>; // Simplificado para props
+        const Bell = (props) => <Icon path={<><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></>} {...props} />;
         const MenuIcon = (props) => <Icon path={<><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></>} {...props} />;
         const XIcon = (props) => <Icon path={<><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></>} {...props} />;
-        const Github = (props) => <Icon path={<path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>} {...props} />;
-        const Linkedin = (props) => <Icon path={<><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></>} {...props} />;
-        const Monitor = (props) => <Icon path={<><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></>} {...props} />;
         const Code = (props) => <Icon path={<><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></>} {...props} />;
         const ChevronRight = (props) => <Icon path={<polyline points="9 18 15 12 9 6"></polyline>} {...props} />;
         const ChevronLeft = (props) => <Icon path={<polyline points="15 18 9 12 15 6"></polyline>} {...props} />;
 
-
-        // --- PALETA DE CORES BRISAFLIX (TEMA CLARO) ---
+        // --- PALETA DE CORES BRISAFLIX ---
         const COLORS = {
             primary: '#2242D4', 
             secondary: '#FF7E05',
@@ -95,77 +91,126 @@
             textDim: '#64748b',
         };
 
-        // --- DADOS ---
+        // --- DADOS ATUALIZADOS COM TEXTOS ASSERTIVOS ---
         const featuredProject = {
             id: 0,
-            title: "EcoTrack Mobile",
-            subtitle: "O Futuro da Sustentabilidade",
-            description: "Em um futuro onde cada byte conta, EcoTrack surge como a única esperança para monitorar a pegada de carbono digital. Uma jornada épica através de interfaces limpas e código otimizado.",
-            longDescription: "O EcoTrack Mobile não é apenas um app, é uma revolução verde no seu bolso. Desenvolvido para transformar hábitos diários, este projeto utiliza geolocalização avançada e gamificação para incentivar escolhas sustentáveis. O desafio foi criar uma experiência fluida (60fps) mesmo processando grandes volumes de dados ambientais em tempo real.",
-            match: "98% Relevante",
+            title: "BRISAFLIX Operacional",
+            subtitle: "Treinamento Prático da Operação",
+            description: "O Brisaflix é o treinamento de aprendizagem prática da operação, criado para desenvolver e reciclar habilidades técnicas essenciais de forma rápida, objetiva e conectada à realidade do campo.",
+            longDescription: "É uma metodologia de aprendizagem baseada em conteúdos curtos, focados e altamente práticos, pensados para serem consumidos rapidamente e aplicados imediatamente no trabalho. O objetivo é garantir que cada técnico tenha acesso rápido ao conhecimento que resolve problemas.",
+            match: "Essencial",
             year: "2024",
-            tags: ["Mobile", "React Native", "UX Design"],
-            image: "bg-gradient-to-r from-blue-600 to-indigo-600",
-            cast: ["React Native", "Redux", "Node.js", "Google Maps API"],
-            director: "Dev Senior da Silva",
-            genre: "Sustentabilidade / Tecnologia"
+            tags: ["Prático", "Objetivo", "Conectado"],
+            image: "bg-gradient-to-r from-blue-700 to-blue-900",
+            cast: ["Técnicos", "Operação", "Campo"],
+            director: "Treinamento Operacional",
+            genre: "Capacitação Técnica"
         };
 
         const categories = [
             {
-                title: "Minha Lista (Projetos Recentes)",
+                title: "Conteúdos Curtos e Focados (Microlearning)",
                 items: [
                     { 
                         id: 1, 
-                        title: "Fintech Dashboard", 
-                        match: "95%", 
-                        duration: "Frontend", 
-                        image: "bg-blue-900",
-                        description: "Uma visão completa das suas finanças. Gráficos em tempo real e segurança de nível bancário.",
-                        techs: ["React", "Recharts", "TypeScript"]
+                        title: "Falhas Invisíveis", 
+                        match: "Diagnóstico", 
+                        duration: "Recorrência", 
+                        image: "bg-red-800",
+                        description: "Falhas invisíveis que viram recorrência: O que você não está enxergando no atendimento.",
+                        techs: ["Atenção", "Detalhes", "Prevenção"]
                     },
                     { 
                         id: 2, 
-                        title: "Delivery App UI", 
-                        match: "90%", 
-                        duration: "UX/UI", 
-                        image: "bg-indigo-900",
-                        description: "A fome não espera. Uma interface desenhada para converter cliques em pedidos em segundos.",
-                        techs: ["Figma", "Prototipagem", "User Flow"]
+                        title: "Atendimento Eficaz", 
+                        match: "Comunicação", 
+                        duration: "Cliente", 
+                        image: "bg-blue-800",
+                        description: "O atendimento que vira retorno: Como o cliente entende sua explicação.",
+                        techs: ["Clareza", "Postura", "Resolução"]
                     },
                     { 
                         id: 3, 
-                        title: "E-commerce API", 
-                        match: "85%", 
-                        duration: "Backend", 
-                        image: "bg-blue-800",
-                        description: "O motor invisível que processa milhares de transações sem perder um único centavo.",
-                        techs: ["Node.js", "Express", "MongoDB", "Docker"]
+                        title: "Verdade sobre o Wi-Fi", 
+                        match: "Técnico", 
+                        duration: "Rede", 
+                        image: "bg-slate-700",
+                        description: "As barras do Wi-Fi não significam internet boa, entenda isso de uma vez!",
+                        techs: ["Sinal", "Conectividade", "Educação"]
                     },
                     { 
                         id: 4, 
-                        title: "Chatbot AI", 
-                        match: "99%", 
-                        duration: "Fullstack", 
-                        image: "bg-indigo-800",
-                        description: "Ele aprende, ele responde, ele resolve. O atendimento ao cliente nunca mais será o mesmo.",
-                        techs: ["Python", "OpenAI API", "React", "Socket.io"]
+                        title: "Checklist Salvador", 
+                        match: "Processo", 
+                        duration: "Qualidade", 
+                        image: "bg-green-700",
+                        description: "Três verificações que salvam você de voltar na OS depois!",
+                        techs: ["Verificação", "Finalização", "Garantia"]
                     },
                 ]
             },
             {
-                title: "Em Alta: Web Development",
+                title: "Indicadores de Resultado",
                 items: [
-                    { id: 5, title: "Landing Page Pro", match: "92%", duration: "React", image: "bg-blue-600", description: "Conversão máxima com design minimalista.", techs: ["React", "Tailwind"] },
-                    { id: 6, title: "Blog CMS", match: "88%", duration: "Next.js", image: "bg-indigo-600", description: "Conteúdo gerenciável com performance estática.", techs: ["Next.js", "Sanity.io"] },
-                    { id: 7, title: "SaaS Starter", match: "94%", duration: "Typescript", image: "bg-sky-600", description: "O kit inicial para sua próxima startup bilionária.", techs: ["TypeScript", "Stripe"] },
+                    { 
+                        id: 5, 
+                        title: "Recorrência vs Aderência", 
+                        match: "KPI", 
+                        duration: "Análise", 
+                        image: "bg-indigo-800", 
+                        description: "Comparação da porcentagem de recorrência entre colaboradores aderentes e aqueles com pendências no treinamento.", 
+                        techs: ["Dados", "Performance", "Impacto"] 
+                    },
+                    { 
+                        id: 6, 
+                        title: "Aderência Global", 
+                        match: "Meta", 
+                        duration: "Equipe", 
+                        image: "bg-orange-700", 
+                        description: "Número total de operadores que realizaram o curso em relação ao total de colaboradores da Brisanet.", 
+                        techs: ["Engajamento", "Cobertura", "T&D"] 
+                    },
                 ]
             },
             {
-                title: "Originais Brisa (Design System)",
+                title: "Canais de Comunicação",
                 items: [
-                    { id: 8, title: "Atomic Design", match: "100%", duration: "Figma", image: "bg-orange-600", description: "A biblioteca visual que mantém tudo coeso.", techs: ["Figma", "Storybook"] },
-                    { id: 9, title: "Icon Set v2", match: "96%", duration: "Illustrator", image: "bg-amber-600", description: "400+ ícones vetoriais perfeitos em qualquer tamanho.", techs: ["Illustrator", "SVG"] },
+                    { 
+                        id: 7, 
+                        title: "E-mail Treinamentos IAT", 
+                        match: "Notificação", 
+                        duration: "Oficial", 
+                        image: "bg-sky-700", 
+                        description: "Irá receber notificações diretas sobre novos conteúdos e atualizações do BRISAFLIX.", 
+                        techs: ["Atualização", "Novidades", "Alerta"] 
+                    },
+                    { 
+                        id: 8, 
+                        title: "Grupos de Gestores", 
+                        match: "Liderança", 
+                        duration: "Repasse", 
+                        image: "bg-emerald-700", 
+                        description: "Comunicação entre líderes e equipes para disseminar informações importantes.", 
+                        techs: ["Gestão", "Alinhamento", "Equipe"] 
+                    },
+                    { 
+                        id: 9, 
+                        title: "Comunicação Institucional", 
+                        match: "Empresa", 
+                        duration: "Corporativo", 
+                        image: "bg-blue-700", 
+                        description: "Canais oficiais da empresa mantêm você atualizado sobre o projeto.", 
+                        techs: ["Institucional", "Diretrizes", "Foco"] 
+                    },
+                    { 
+                        id: 10, 
+                        title: "Acesso à Plataforma", 
+                        match: "Login", 
+                        duration: "LMS", 
+                        image: "bg-purple-700", 
+                        description: "Acesso rápido e visual direto na plataforma de treinamento que você já conhece.", 
+                        techs: ["Facilidade", "Acesso", "Estudo"] 
+                    },
                 ]
             }
         ];
@@ -223,13 +268,12 @@
                                             {selectedProject.title}
                                     </h2>
                                     <div className="flex flex-wrap items-center gap-2 md:gap-3">
-                                        <span className="bg-[#2242D4] text-white px-2 py-0.5 rounded text-xs md:text-sm font-bold">
+                                        <span className="bg-[#2242D4] text-white px-2 py-0.5 rounded text-xs md:text-sm font-bold uppercase">
                                             {selectedProject.match}
                                         </span>
                                         <span className="text-slate-600 font-medium text-xs md:text-sm">
-                                            {selectedProject.year || "2024"}
+                                            Treinamento Oficial
                                         </span>
-                                        <span className="border border-slate-400 px-1 rounded text-[10px] md:text-xs text-slate-500 font-bold">HD</span>
                                     </div>
                                 </div>
                             </div>
@@ -240,35 +284,35 @@
                                         <div className="flex items-center gap-3 mb-4">
                                             <button 
                                                 onClick={() => {
-                                                    showNotification(`Iniciando demo de: ${selectedProject.title}`);
+                                                    showNotification(`Acessando conteúdo: ${selectedProject.title}`);
                                                     closeModal();
                                                 }}
                                                 className="flex-1 bg-[#2242D4] text-white py-3 md:py-2 rounded-md font-bold hover:bg-[#1a33a8] transition-colors flex items-center justify-center gap-2 text-sm md:text-base"
                                             >
-                                                <Play size={20} fill="white" /> Assistir Demo
+                                                <Play size={20} fill="white" /> Iniciar Agora
                                             </button>
                                             <button 
-                                                onClick={() => showNotification("Adicionado à Minha Lista")}
+                                                onClick={() => showNotification("Salvo para ver depois")}
                                                 className="p-3 md:p-2 border border-slate-300 rounded-full hover:border-[#FF7E05] hover:text-[#FF7E05] transition-colors"
                                             >
                                                 <Plus size={20} />
                                             </button>
                                             <button 
-                                                onClick={() => showNotification("Projeto curtido!")}
+                                                onClick={() => showNotification("Conteúdo validado")}
                                                 className="p-3 md:p-2 border border-slate-300 rounded-full hover:border-[#FF7E05] hover:text-[#FF7E05] transition-colors"
                                             >
                                                 <ThumbsUp size={20} />
                                             </button>
                                         </div>
 
-                                        <p className="text-slate-600 text-sm md:text-base leading-relaxed">
+                                        <p className="text-slate-600 text-sm md:text-base leading-relaxed font-medium">
                                             {selectedProject.longDescription || selectedProject.description}
                                         </p>
                                     </div>
 
                                     <div className="md:col-span-1 text-sm space-y-4 border-t md:border-t-0 pt-4 md:pt-0 border-slate-100">
                                         <div>
-                                            <span className="block text-slate-400 font-medium text-xs mb-1">Tecnologias:</span>
+                                            <span className="block text-slate-400 font-medium text-xs mb-1 uppercase">Foco:</span>
                                             <div className="flex flex-wrap gap-1">
                                                 {(selectedProject.techs || selectedProject.cast || selectedProject.tags || []).map(tech => (
                                                     <span key={tech} className="text-slate-800 font-medium hover:underline cursor-pointer bg-slate-100 px-2 py-0.5 rounded-md text-xs">
@@ -278,15 +322,15 @@
                                             </div>
                                         </div>
                                         <div>
-                                            <span className="block text-slate-400 font-medium text-xs mb-1">Gênero:</span>
+                                            <span className="block text-slate-400 font-medium text-xs mb-1 uppercase">Categoria:</span>
                                             <span className="text-slate-800 font-medium">
-                                                {selectedProject.genre || "Desenvolvimento Web"}
+                                                {selectedProject.genre || "Operacional"}
                                             </span>
                                         </div>
                                         <div>
-                                            <span className="block text-slate-400 font-medium text-xs mb-1">Direção:</span>
+                                            <span className="block text-slate-400 font-medium text-xs mb-1 uppercase">Responsável:</span>
                                             <span className="text-slate-800 font-medium">
-                                                João Brisa
+                                                IAT - Treinamento
                                             </span>
                                         </div>
                                     </div>
@@ -314,12 +358,13 @@
                             alt="Brisaflix Logo"
                             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                             className="h-12 md:h-16 cursor-pointer select-none object-contain transition-all duration-300 hover:scale-105 hover:brightness-0 hover:invert active:scale-95 active:brightness-0 active:invert"
+                            onError={(e) => { e.target.style.display = 'none'; }}
                         />
+                         <span className="md:hidden font-bold text-lg text-[#2242D4] hidden peer-placeholder-shown:block">BRISAFLIX</span>
                         
                         <div className={`hidden md:flex items-center gap-6 font-medium transition-colors text-sm md:text-base ${isScrolled ? 'text-slate-600' : 'text-slate-200'}`}>
-                            <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className={`font-bold hover:text-[#FF7E05] transition-colors ${isScrolled ? 'text-slate-900' : 'text-white'}`}>Início</button>
+                            <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className={`font-bold hover:text-[#FF7E05] transition-colors ${isScrolled ? 'text-slate-900' : 'text-white'}`}>Home</button>
                             
-                            {/* Link UniBrisa */}
                             <a 
                                 href="https://brisanet.teste.konviva.com.br/lms/#/portal" 
                                 target="_blank" 
@@ -329,7 +374,6 @@
                                 UniBrisa
                             </a>
                             
-                            {/* Link Universo Brisa */}
                             <a 
                                 href="https://grupobrisanet.mybeehome.com/beezz" 
                                 target="_blank" 
@@ -339,16 +383,16 @@
                                 Universo Brisa
                             </a>
                             
-                            <button onClick={() => showNotification("Acessando sua lista de favoritos...")} className="hover:text-[#FF7E05] transition-colors">Minha Lista</button>
+                            <button onClick={() => showNotification("Acessando área do aluno...")} className="hover:text-[#FF7E05] transition-colors">Meus Treinamentos</button>
                         </div>
                     </div>
 
                     <div className={`flex items-center gap-4 md:gap-6 transition-colors ${isScrolled ? 'text-slate-600' : 'text-white'}`}>
-                        <Search onClick={() => showNotification("Busca iniciada...")} className="w-5 h-5 md:w-6 md:h-6 cursor-pointer hover:text-[#FF7E05] transition-colors" />
-                        <Bell onClick={() => showNotification("Nenhuma notificação nova")} className="w-5 h-5 md:w-6 md:h-6 cursor-pointer hover:text-[#FF7E05] transition-colors" />
-                        <div onClick={() => showNotification("Perfil do Desenvolvedor: João Brisa")} className="flex items-center gap-2 cursor-pointer group">
+                        <Search onClick={() => showNotification("Pesquisando conteúdo...")} className="w-5 h-5 md:w-6 md:h-6 cursor-pointer hover:text-[#FF7E05] transition-colors" />
+                        <Bell onClick={() => showNotification("Novos conteúdos disponíveis")} className="w-5 h-5 md:w-6 md:h-6 cursor-pointer hover:text-[#FF7E05] transition-colors" />
+                        <div onClick={() => showNotification("Colaborador")} className="flex items-center gap-2 cursor-pointer group">
                             <div className="w-7 h-7 md:w-8 md:h-8 rounded flex items-center justify-center font-bold text-[10px] md:text-xs transition-all group-hover:ring-2 bg-[#2242D4] text-white group-hover:ring-[#FF7E05]">
-                                DEV
+                                IAT
                             </div>
                         </div>
                     </div>
@@ -363,6 +407,7 @@
                                 src="https://raw.githubusercontent.com/gilnei-ship-it/brisaflix/main/imgens/Logo%20TDG.pptx.png"
                                 alt="Brisaflix Logo"
                                 className="h-10 object-contain"
+                                onError={(e) => { e.target.style.display = 'none'; }}
                              />
                              <button onClick={() => setIsMobileMenuOpen(false)} className="text-slate-500">
                                <XIcon size={24} />
@@ -370,9 +415,8 @@
                            </div>
 
                            <div className="flex flex-col gap-6 text-slate-700 font-bold text-lg">
-                              <button onClick={() => setIsMobileMenuOpen(false)} className="text-left hover:text-[#2242D4]">Início</button>
+                              <button onClick={() => setIsMobileMenuOpen(false)} className="text-left hover:text-[#2242D4]">Home</button>
                               
-                              {/* Link UniBrisa Mobile */}
                               <a 
                                   href="https://brisanet.teste.konviva.com.br/lms/#/portal" 
                                   target="_blank" 
@@ -383,7 +427,6 @@
                                   UniBrisa
                               </a>
                               
-                              {/* Link Universo Brisa Mobile */}
                               <a 
                                   href="https://grupobrisanet.mybeehome.com/beezz" 
                                   target="_blank" 
@@ -394,9 +437,9 @@
                                   Universo Brisa
                               </a>
                               
-                              <button onClick={() => { showNotification("Minha Lista"); setIsMobileMenuOpen(false); }} className="text-left hover:text-[#2242D4]">Minha Lista</button>
+                              <button onClick={() => { showNotification("Meus Treinamentos"); setIsMobileMenuOpen(false); }} className="text-left hover:text-[#2242D4]">Meus Treinamentos</button>
                               <div className="h-px bg-slate-300 my-2"></div>
-                              <button onClick={() => setIsMobileMenuOpen(false)} className="text-left text-base font-normal text-slate-500">Configurações</button>
+                              <button onClick={() => setIsMobileMenuOpen(false)} className="text-left text-base font-normal text-slate-500">Ajuda</button>
                               <button onClick={() => setIsMobileMenuOpen(false)} className="text-left text-base font-normal text-slate-500">Sair</button>
                            </div>
                         </div>
@@ -420,8 +463,8 @@
                     <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center px-6 md:px-12 pt-16 md:pt-0">
                         <div className="max-w-2xl space-y-4 animate-in">
                             <div className="flex items-center gap-2 font-bold tracking-widest text-xs md:text-sm">
-                                <span style={{ color: COLORS.secondary }}>B R I S A</span>
-                                <span className="text-white/80">O R I G I N A L</span>
+                                <span style={{ color: COLORS.secondary }}>TREINAMENTO</span>
+                                <span className="text-white/80">OPERACIONAL</span>
                             </div>
                             
                             <h1 
@@ -432,9 +475,9 @@
                             </h1>
 
                             <div className="flex flex-wrap items-center gap-3 md:gap-4 font-medium text-sm md:text-lg">
-                                <span className="font-bold bg-white text-[#2242D4] px-2 py-0.5 rounded-sm shadow-sm text-xs md:text-sm">{featuredProject.match}</span>
+                                <span className="font-bold bg-white text-[#2242D4] px-2 py-0.5 rounded-sm shadow-sm text-xs md:text-sm uppercase">{featuredProject.match}</span>
                                 <span className="text-white/90">{featuredProject.year}</span>
-                                <span className="border border-white/40 px-2 py-0.5 rounded text-[10px] md:text-xs text-white bg-black/10">FULL HD</span>
+                                <span className="border border-white/40 px-2 py-0.5 rounded text-[10px] md:text-xs text-white bg-black/10">OBRIGATÓRIO</span>
                                 <span className="text-white flex items-center gap-1 text-xs md:text-sm">
                                     <Code size={14} className="md:w-4 md:h-4" /> {featuredProject.tags[0]} • {featuredProject.tags[1]}
                                 </span>
@@ -446,12 +489,12 @@
                             
                             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 md:gap-4 pt-4 w-full sm:w-auto">
                                 <button 
-                                    onClick={() => showNotification("Reproduzindo Demo do EcoTrack...")}
+                                    onClick={() => showNotification("Carregando módulo de treinamento...")}
                                     className="w-full sm:w-auto flex items-center justify-center gap-3 px-6 md:px-8 py-3 md:py-3.5 rounded font-bold hover:brightness-110 transition-all shadow-lg hover:shadow-orange-500/30 active:scale-95 text-white text-sm md:text-base"
                                     style={{ backgroundColor: COLORS.secondary }}
                                 >
                                     <Play fill="white" size={20} /> 
-                                    Ver Projeto
+                                    Iniciar Treinamento
                                 </button>
                                 
                                 <button 
@@ -459,7 +502,7 @@
                                     className="w-full sm:w-auto flex items-center justify-center gap-3 px-6 md:px-8 py-3 md:py-3.5 rounded bg-white/20 text-white font-bold hover:bg-white/30 transition-colors backdrop-blur-md border border-white/30 text-sm md:text-base"
                                 >
                                     <Info size={20} />
-                                    Mais Informações
+                                    Detalhes
                                 </button>
                             </div>
                         </div>
@@ -471,7 +514,7 @@
                 <div className="mb-8 md:mb-12 px-4 md:px-12 group">
                     <h2 
                         className="font-bold text-slate-800 mb-3 md:mb-4 flex items-center gap-2 group-hover:text-[#2242D4] transition-colors cursor-pointer text-xl md:text-3xl"
-                        onClick={() => showNotification(`Explorando categoria: ${title}`)}
+                        onClick={() => showNotification(`Visualizando categoria: ${title}`)}
                     >
                         {title} 
                         <ChevronRight className="opacity-0 group-hover:opacity-100 transition-all duration-300 text-[#FF7E05] -ml-2 group-hover:ml-0 group-hover:translate-x-1 hidden md:block" size={30} />
@@ -493,23 +536,25 @@
                                     className="flex-none w-[160px] sm:w-[200px] md:w-[280px] aspect-video rounded-lg md:rounded-xl relative overflow-hidden cursor-pointer transition-all duration-300 md:hover:scale-110 md:hover:z-30 md:hover:shadow-2xl group/card snap-start bg-white shadow-sm border border-slate-200"
                                     onClick={() => openModal(item)}
                                 >
-                                    <div className={`w-full h-full ${item.image} flex items-center justify-center`}>
-                                        <span className="text-xl md:text-3xl font-black text-white/20 uppercase tracking-widest">{item.duration}</span>
+                                    <div className={`w-full h-full ${item.image} flex items-center justify-center p-2 text-center`}>
+                                        <span className="text-lg md:text-2xl font-black text-white/90 uppercase tracking-widest drop-shadow-md">{item.duration}</span>
                                     </div>
 
                                     <div className="hidden md:flex absolute inset-0 bg-white opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 flex-col p-4 shadow-xl border-2 border-[#2242D4]">
-                                        <div className={`h-24 w-full rounded-lg mb-2 ${item.image} opacity-80`}></div>
+                                        <div className={`h-24 w-full rounded-lg mb-2 ${item.image} opacity-80 flex items-center justify-center`}>
+                                            <span className="text-white font-bold text-xs uppercase">{item.match}</span>
+                                        </div>
 
                                         <div className="flex items-center gap-2 mb-2">
                                             <button 
-                                                onClick={(e) => { e.stopPropagation(); showNotification(`Reproduzindo: ${item.title}`); }}
+                                                onClick={(e) => { e.stopPropagation(); showNotification(`Acessando: ${item.title}`); }}
                                                 className="w-8 h-8 rounded-full flex items-center justify-center transition-colors hover:brightness-110 shadow-md"
                                                 style={{ backgroundColor: COLORS.primary }}
                                             >
                                                 <Play size={14} fill="white" className="text-white ml-0.5" />
                                             </button>
                                             <button 
-                                                onClick={(e) => { e.stopPropagation(); showNotification("Adicionado à Lista"); }}
+                                                onClick={(e) => { e.stopPropagation(); showNotification("Na lista de interesse"); }}
                                                 className="w-8 h-8 rounded-full border-2 border-slate-300 flex items-center justify-center hover:border-[#FF7E05] hover:text-[#FF7E05] text-slate-400"
                                             >
                                                 <Plus size={16} />
@@ -522,14 +567,13 @@
                                             </button>
                                         </div>
                                         
-                                        <h3 className="font-bold text-slate-800 leading-tight mb-1 text-base">
+                                        <h3 className="font-bold text-slate-800 leading-tight mb-1 text-base line-clamp-1">
                                             {item.title}
                                         </h3>
                                         
-                                        <div className="flex items-center gap-2 font-semibold text-xs">
-                                            <span className="text-[#FF7E05]">{item.match}</span>
-                                            <span className="border border-slate-300 px-1 rounded text-slate-500">HD</span>
-                                        </div>
+                                        <p className="text-slate-500 text-xs line-clamp-2 mb-2">
+                                            {item.description}
+                                        </p>
                                         
                                         <div className="mt-auto flex gap-2 pt-2 border-t border-slate-100 text-xs">
                                             {(item.techs || []).slice(0, 2).map((tech, i) => (
