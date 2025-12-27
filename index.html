@@ -99,7 +99,7 @@
             description: "O Brisaflix é o treinamento de aprendizagem prática da operação, criado para desenvolver e reciclar habilidades técnicas essenciais de forma rápida, objetiva e conectada à realidade do campo.",
             longDescription: "É uma metodologia de aprendizagem baseada em conteúdos curtos, focados e altamente práticos, pensados para serem consumidos rapidamente e aplicados imediatamente no trabalho. O objetivo é garantir que cada técnico tenha acesso rápido ao conhecimento que resolve problemas.",
             match: "Essencial",
-            year: "2026",
+            year: "2024",
             tags: ["Prático", "Objetivo", "Conectado"],
             image: "bg-gradient-to-r from-blue-700 to-blue-900",
             cast: ["Técnicos", "Operação", "Campo"],
@@ -382,18 +382,6 @@
                             >
                                 Universo Brisa
                             </a>
-                            
-                            <button onClick={() => showNotification("Acessando área do aluno...")} className="hover:text-[#FF7E05] transition-colors">Meus Treinamentos</button>
-                        </div>
-                    </div>
-
-                    <div className={`flex items-center gap-4 md:gap-6 transition-colors ${isScrolled ? 'text-slate-600' : 'text-white'}`}>
-                        <Search onClick={() => showNotification("Pesquisando conteúdo...")} className="w-5 h-5 md:w-6 md:h-6 cursor-pointer hover:text-[#FF7E05] transition-colors" />
-                        <Bell onClick={() => showNotification("Novos conteúdos disponíveis")} className="w-5 h-5 md:w-6 md:h-6 cursor-pointer hover:text-[#FF7E05] transition-colors" />
-                        <div onClick={() => showNotification("Colaborador")} className="flex items-center gap-2 cursor-pointer group">
-                            <div className="w-7 h-7 md:w-8 md:h-8 rounded flex items-center justify-center font-bold text-[10px] md:text-xs transition-all group-hover:ring-2 bg-[#2242D4] text-white group-hover:ring-[#FF7E05]">
-                                IAT
-                            </div>
                         </div>
                     </div>
 
@@ -437,7 +425,6 @@
                                   Universo Brisa
                               </a>
                               
-                              <button onClick={() => { showNotification("Meus Treinamentos"); setIsMobileMenuOpen(false); }} className="text-left hover:text-[#2242D4]">Meus Treinamentos</button>
                               <div className="h-px bg-slate-300 my-2"></div>
                               <button onClick={() => setIsMobileMenuOpen(false)} className="text-left text-base font-normal text-slate-500">Ajuda</button>
                               <button onClick={() => setIsMobileMenuOpen(false)} className="text-left text-base font-normal text-slate-500">Sair</button>
