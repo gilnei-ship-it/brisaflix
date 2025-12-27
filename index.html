@@ -68,6 +68,38 @@
         .animate-in {
             animation: fadeIn 0.3s ease-out forwards;
         }
+        
+        /* Animação de Zoom Lento (Ken Burns) */
+        @keyframes zoomSlow {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.15); }
+        }
+        .animate-zoom {
+            animation: zoomSlow 20s infinite alternate ease-in-out;
+        }
+
+        /* Efeito de hover suave nos links do menu */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #FF7E05;
+            transition: width 0.3s ease-in-out;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Classe para logo branca no hover/active */
+        .logo-hover:hover, .logo-hover:active {
+            filter: brightness(0) invert(1);
+        }
     </style>
 </head>
 <body>
@@ -438,9 +470,9 @@
                                             </span>
                                         </div>
                                         <div>
-                                            <span className="block text-slate-400 font-medium text-xs mb-1 uppercase">Instrutor:</span>
+                                            <span className="block text-slate-400 font-medium text-xs mb-1 uppercase">Responsável:</span>
                                             <span className="text-slate-800 font-medium">
-                                                {selectedProject.director || "IAT - Treinamento"}
+                                                IAT - Treinamento
                                             </span>
                                         </div>
                                     </div>
@@ -452,52 +484,80 @@
             };
 
             const Navbar = () => (
-                <nav className={`fixed top-0 w-full z-50 transition-all duration-300 px-4 md:px-12 py-3 md:py-4 flex items-center justify-between ${
-                    isScrolled ? 'bg-[#e8e8e8]/95 backdrop-blur-md shadow-md' : 'bg-transparent bg-gradient-to-b from-black/60 to-transparent'
+                <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ease-in-out px-6 md:px-16 ${
+                    isScrolled 
+                        ? 'py-3 bg-white/90 backdrop-blur-lg shadow-lg border-b border-gray-200/50' 
+                        : 'py-5 bg-gradient-to-b from-black/80 via-black/40 to-transparent'
                 }`}>
-                    <div className="flex items-center gap-4 md:gap-8">
-                        <button 
-                            className="md:hidden text-white drop-shadow-md"
-                            onClick={() => setIsMobileMenuOpen(true)}
-                        >
-                            <MenuIcon size={28} color={isScrolled ? COLORS.primary : 'white'} />
-                        </button>
+                    <div className="flex items-center justify-between">
+                        {/* Esquerda: Logo + Menu Desktop */}
+                        <div className="flex items-center gap-8 md:gap-12">
+                            <button 
+                                className="md:hidden text-white drop-shadow-md"
+                                onClick={() => setIsMobileMenuOpen(true)}
+                            >
+                                <MenuIcon size={28} color={isScrolled ? COLORS.primary : 'white'} />
+                            </button>
 
-                        <img 
-                            src="https://raw.githubusercontent.com/gilnei-ship-it/brisaflix/main/imgens/Logo%20TDG.pptx.png"
-                            alt="Brisaflix Logo"
-                            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                            className="h-12 md:h-16 cursor-pointer select-none object-contain transition-all duration-300 hover:scale-105 hover:brightness-0 hover:invert active:scale-95 active:brightness-0 active:invert"
-                            onError={(e) => { e.target.style.display = 'none'; }}
-                        />
-                         <span className="md:hidden font-bold text-lg text-[#2242D4] hidden peer-placeholder-shown:block">BRISAFLIX</span>
-                        
-                        <div className={`hidden md:flex items-center gap-6 font-medium transition-colors text-sm md:text-base ${isScrolled ? 'text-slate-600' : 'text-slate-200'}`}>
-                            <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className={`font-bold hover:text-[#FF7E05] transition-colors ${isScrolled ? 'text-slate-900' : 'text-white'}`}>Home</button>
+                            <img 
+                                src="https://raw.githubusercontent.com/gilnei-ship-it/brisaflix/main/imgens/Logo%20TDG.pptx.png"
+                                alt="Brisaflix Logo"
+                                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                                className="h-10 md:h-12 cursor-pointer select-none object-contain transition-all duration-300 hover:scale-105 active:scale-95 logo-hover"
+                                onError={(e) => { e.target.style.display = 'none'; }}
+                            />
+                            <span className={`md:hidden font-bold text-lg hidden peer-placeholder-shown:block ${isScrolled ? 'text-[#2242D4]' : 'text-white'}`}>BRISAFLIX</span>
                             
-                            <a 
-                                href="https://brisanet.teste.konviva.com.br/lms/#/portal" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="hover:text-[#FF7E05] transition-colors"
-                            >
-                                UniBrisa
-                            </a>
+                            <div className={`hidden md:flex items-center gap-8 font-medium text-sm tracking-wide transition-colors duration-300 ${isScrolled ? 'text-slate-600' : 'text-gray-200'}`}>
+                                <a 
+                                    href="#" 
+                                    onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                                    className={`nav-link hover:text-[#FF7E05] transition-colors ${isScrolled ? 'text-slate-800 font-bold' : 'text-white font-medium'}`}
+                                >
+                                    Home
+                                </a>
+                                
+                                <a 
+                                    href="https://brisanet.teste.konviva.com.br/lms/#/portal" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="nav-link hover:text-[#FF7E05] transition-colors"
+                                >
+                                    UniBrisa
+                                </a>
+                                
+                                <a 
+                                    href="https://grupobrisanet.mybeehome.com/beezz" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="nav-link hover:text-[#FF7E05] transition-colors"
+                                >
+                                    Universo Brisa
+                                </a>
+                            </div>
+                        </div>
+
+                        {/* Direita: Ícones */}
+                        <div className={`flex items-center gap-5 md:gap-7 transition-colors duration-300 ${isScrolled ? 'text-slate-500' : 'text-white'}`}>
+                            <Search onClick={() => showNotification("Pesquisando conteúdo...")} className="w-5 h-5 cursor-pointer hover:text-[#FF7E05] transition-transform hover:scale-110" />
+                            <Bell onClick={() => showNotification("Novos conteúdos disponíveis")} className="w-5 h-5 cursor-pointer hover:text-[#FF7E05] transition-transform hover:scale-110" />
                             
-                            <a 
-                                href="https://grupobrisanet.mybeehome.com/beezz" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="hover:text-[#FF7E05] transition-colors"
-                            >
-                                Universo Brisa
-                            </a>
+                            {/* Perfil do Usuário */}
+                            <div onClick={() => showNotification("Colaborador")} className="flex items-center gap-2 cursor-pointer group relative">
+                                <img 
+                                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop" 
+                                    alt="Perfil" 
+                                    className="w-9 h-9 rounded-md object-cover border-2 border-transparent group-hover:border-[#FF7E05] transition-all shadow-sm"
+                                />
+                                <div className={`w-2.5 h-2.5 bg-green-500 rounded-full absolute -bottom-0.5 -right-0.5 border-2 ${isScrolled ? 'border-white' : 'border-black'}`}></div>
+                            </div>
                         </div>
                     </div>
 
-                    <div className={`fixed inset-0 z-50 bg-black/50 backdrop-blur-sm transition-opacity duration-300 md:hidden ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={() => setIsMobileMenuOpen(false)}>
+                    {/* Menu Mobile Lateral (Off-canvas) */}
+                    <div className={`fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm transition-opacity duration-300 md:hidden ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={() => setIsMobileMenuOpen(false)}>
                         <div 
-                            className={`absolute left-0 top-0 h-full w-[70%] max-w-xs bg-[#e8e8e8] shadow-2xl transform transition-transform duration-300 flex flex-col p-6 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
+                            className={`absolute left-0 top-0 h-full w-[75%] max-w-xs bg-[#e8e8e8] shadow-2xl transform transition-transform duration-300 flex flex-col p-6 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
                             onClick={(e) => e.stopPropagation()}
                         >
                            <div className="flex items-center justify-between mb-8">
@@ -507,20 +567,20 @@
                                 className="h-10 object-contain"
                                 onError={(e) => { e.target.style.display = 'none'; }}
                              />
-                             <button onClick={() => setIsMobileMenuOpen(false)} className="text-slate-500">
+                             <button onClick={() => setIsMobileMenuOpen(false)} className="text-slate-500 p-2 hover:bg-slate-200 rounded-full transition-colors">
                                <XIcon size={24} />
                              </button>
                            </div>
 
                            <div className="flex flex-col gap-6 text-slate-700 font-bold text-lg">
-                              <button onClick={() => setIsMobileMenuOpen(false)} className="text-left hover:text-[#2242D4]">Home</button>
+                              <button onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); setIsMobileMenuOpen(false); }} className="text-left hover:text-[#2242D4] transition-colors">Home</button>
                               
                               <a 
                                   href="https://brisanet.teste.konviva.com.br/lms/#/portal" 
                                   target="_blank" 
                                   rel="noopener noreferrer"
                                   onClick={() => setIsMobileMenuOpen(false)} 
-                                  className="text-left hover:text-[#2242D4]"
+                                  className="text-left hover:text-[#2242D4] transition-colors"
                               >
                                   UniBrisa
                               </a>
@@ -530,14 +590,14 @@
                                   target="_blank" 
                                   rel="noopener noreferrer"
                                   onClick={() => setIsMobileMenuOpen(false)} 
-                                  className="text-left hover:text-[#2242D4]"
+                                  className="text-left hover:text-[#2242D4] transition-colors"
                               >
                                   Universo Brisa
                               </a>
                               
                               <div className="h-px bg-slate-300 my-2"></div>
-                              <button onClick={() => setIsMobileMenuOpen(false)} className="text-left text-base font-normal text-slate-500">Ajuda</button>
-                              <button onClick={() => setIsMobileMenuOpen(false)} className="text-left text-base font-normal text-slate-500">Sair</button>
+                              <button onClick={() => setIsMobileMenuOpen(false)} className="text-left text-base font-normal text-slate-500 hover:text-slate-800 transition-colors">Ajuda</button>
+                              <button onClick={() => setIsMobileMenuOpen(false)} className="text-left text-base font-normal text-slate-500 hover:text-slate-800 transition-colors">Sair</button>
                            </div>
                         </div>
                     </div>
@@ -546,15 +606,20 @@
 
             const Hero = () => (
                 <div className="relative h-[85vh] md:h-[90vh] w-full text-white overflow-hidden">
-                    <div className="absolute inset-0 bg-slate-900">
-                        <div className="w-full h-full bg-[url('https://images.unsplash.com/photo-1544197150-b99a580bbc7c?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
+                    <div className="absolute inset-0 bg-slate-900 overflow-hidden">
+                        {/* Imagem de Fundo com Animação de Zoom (Ken Burns) */}
+                        <div className="w-full h-full animate-zoom bg-cover bg-center" style={{ backgroundImage: "url('https://raw.githubusercontent.com/gilnei-ship-it/brisaflix/main/imgens/data-center-engineer-uses-ai-visualization-tool-on-2025-11-30-14-38-26-utc.jpg')" }}></div>
+                        
+                        {/* Camada de Gradiente estilo Netflix - Azul na esquerda desvanecendo para a direita */}
                         <div 
-                           className="absolute inset-0 opacity-90"
+                           className="absolute inset-0"
                            style={{ 
-                             background: `linear-gradient(90deg, ${COLORS.primary} 0%, ${COLORS.primary}CC 60%, transparent 100%)` 
+                             background: `linear-gradient(77deg, ${COLORS.primary} 0%, ${COLORS.primary}D9 30%, transparent 85%)` 
                            }}
                         ></div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#e8e8e8] via-transparent to-transparent md:hidden"></div>
+
+                        {/* Gradiente Inferior para conectar com o resto da página */}
+                        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#e8e8e8] to-transparent"></div>
                     </div>
 
                     <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center px-6 md:px-12 pt-16 md:pt-0">
