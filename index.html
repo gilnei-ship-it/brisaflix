@@ -107,16 +107,16 @@
         /* Tipografia Fluida Assertiva (Proporcional) */
         /* Título Hero: Reduz levemente no mobile para evitar quebras ruins */
         .text-fluid-title {
-            font-size: clamp(1.75rem, 5vw, 3.5rem); 
+            font-size: clamp(2rem, 6vw, 4rem); 
             line-height: 1.1;
         }
         /* Subtítulo Hero: Garante legibilidade mínima */
         .text-fluid-subtitle {
-            font-size: clamp(0.9rem, 2vw, 1.125rem); 
+            font-size: clamp(1rem, 2.5vw, 1.25rem); 
         }
         /* Títulos de Seção: Ajuste fino */
         .text-fluid-section {
-            font-size: clamp(1.25rem, 2.5vw, 1.875rem);
+            font-size: clamp(1.25rem, 3vw, 2rem);
         }
     </style>
 </head>
@@ -636,7 +636,8 @@
             );
 
             const Hero = () => (
-                <div className="relative h-[65vh] md:h-[90vh] w-full text-white overflow-hidden">
+                // AJUSTE CRÍTICO DE ALTURA NO MOBILE (min-h-[80vh]) E DESKTOP (md:h-[90vh])
+                <div className="relative min-h-[85vh] md:h-[90vh] w-full text-white overflow-hidden">
                     <div className="absolute inset-0 bg-slate-900 overflow-hidden">
                         {/* Imagem de Fundo com Animação de Zoom (Ken Burns) e Posição Otimizada para Mobile */}
                         {/* Ajuste Mobile: bg-[75%_top] foca mais à direita (lado da menina) */}
@@ -662,18 +663,20 @@
                         ></div>
 
                         {/* Gradiente Inferior para conectar com o resto da página */}
-                        <div className="absolute bottom-0 left-0 right-0 h-24 md:h-32 bg-gradient-to-t from-[#e8e8e8] to-transparent"></div>
+                        <div className="absolute bottom-0 left-0 right-0 h-32 md:h-32 bg-gradient-to-t from-[#e8e8e8] to-transparent"></div>
                     </div>
 
                     <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center px-6 md:px-12 pt-16 md:pt-0">
-                        <div className="max-w-2xl space-y-4 animate-in flex flex-col justify-end h-full md:h-auto pb-10 md:pb-0">
+                        {/* AJUSTE: pb-32 no mobile para garantir que o texto fique ACIMA da dobra onde a lista sobe */}
+                        <div className="max-w-2xl space-y-4 animate-in flex flex-col justify-end h-full md:h-auto pb-32 md:pb-0">
                             <div className="flex items-center gap-2 font-bold tracking-widest text-xs md:text-sm">
                                 <span style={{ color: COLORS.secondary }}>TREINAMENTO</span>
                                 <span className="text-white/80">OPERACIONAL</span>
                             </div>
                             
                             <h1 
-                                className="font-black leading-none tracking-tight drop-shadow-md text-white text-fluid-title"
+                                // AJUSTE: leading-tight para evitar sobreposição de linhas em fontes grandes
+                                className="font-black leading-tight tracking-tight drop-shadow-md text-white text-fluid-title"
                             >
                                 {featuredProject.title}
                             </h1>
@@ -705,7 +708,7 @@
                                     onClick={() => openModal(featuredProject)}
                                     className="w-full sm:w-auto flex items-center justify-center gap-3 px-6 md:px-8 py-3 md:py-3.5 rounded bg-white/20 text-white font-bold hover:bg-white/30 transition-colors backdrop-blur-md border border-white/30 text-sm md:text-base min-h-[48px]"
                                 >
-                                    <Info size={20} />
+                                    <Info size={20} /> 
                                     Detalhes
                                 </button>
                             </div>
@@ -865,7 +868,8 @@
                     <Navbar />
                     <Hero />
                     
-                    <div className="-mt-16 md:-mt-24 relative z-10 pb-10 md:pb-20 space-y-2 md:space-y-4">
+                    {/* AJUSTE: Margem negativa reduzida no mobile (-mt-10) para evitar colisão agressiva, mantendo a ideia de sobreposição */}
+                    <div className="-mt-10 md:-mt-24 relative z-10 pb-10 md:pb-20 space-y-2 md:space-y-4">
                         {categories.map((cat, index) => (
                             <ProjectRow key={index} title={cat.title} items={cat.items} />
                         ))}
