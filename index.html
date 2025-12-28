@@ -99,7 +99,7 @@
             width: 100%;
         }
         
-        /* Classe para logo branca no hover/active */
+        /* Classe para logo branca no hover/active (para desktop) */
         .logo-hover:hover, .logo-hover:active {
             filter: brightness(0) invert(1);
         }
@@ -541,7 +541,7 @@
                                     src="https://raw.githubusercontent.com/gilnei-ship-it/brisaflix/main/imgens/Logo%20TDG.pptx.png"
                                     alt="Brisaflix Logo"
                                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                                    className={`h-10 md:h-12 cursor-pointer select-none object-contain transition-all duration-300 hover:scale-105 active:scale-95 ${!isScrolled ? 'logo-hover' : ''}`}
+                                    className={`h-10 md:h-12 cursor-pointer select-none object-contain transition-all duration-300 hover:scale-105 active:scale-95 ${!isScrolled ? 'brightness-0 invert' : ''}`}
                                     onError={(e) => { e.target.style.display = 'none'; }}
                                 />
                                 {/* Texto removido para evitar duplicação com a logo no mobile */}
@@ -588,7 +588,7 @@
                     {/* Menu Mobile Lateral (Off-canvas) - AQUI ESTÁ A CORREÇÃO PRINCIPAL */}
                     <div className={`fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm transition-opacity duration-300 md:hidden ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={() => setIsMobileMenuOpen(false)}>
                         <div 
-                            className={`absolute left-0 top-0 h-full w-[80%] max-w-xs bg-white shadow-2xl transform transition-transform duration-300 flex flex-col p-6 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
+                            className={`absolute left-0 top-0 h-[100dvh] w-[80%] max-w-xs bg-white shadow-2xl transform transition-transform duration-300 flex flex-col p-6 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
                             onClick={(e) => e.stopPropagation()}
                         >
                            <div className="flex items-center justify-between mb-8 border-b border-gray-100 pb-4">
@@ -603,7 +603,7 @@
                              </button>
                            </div>
 
-                           <div className="flex flex-col gap-4 text-slate-700 font-bold text-lg">
+                           <div className="flex flex-col gap-4 text-slate-700 font-bold text-lg overflow-y-auto">
                               <button onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); setIsMobileMenuOpen(false); }} className="text-left hover:text-[#2242D4] transition-colors py-2 px-2 hover:bg-slate-50 rounded-md">Home</button>
                               
                               <a 
