@@ -152,17 +152,16 @@
         const featuredProject = {
             id: 0,
             title: "BRISAFLIX Operacional",
-            subtitle: "Excelência Técnica em Campo",
-            description: "Acesse a trilha completa de capacitação técnica. Conteúdos práticos para eliminar a recorrência e elevar o padrão de atendimento.",
-            longDescription: "O Brisaflix é a ferramenta definitiva para o profissional de campo. Centralizamos procedimentos padrão, tutoriais de infraestrutura e diretrizes de atendimento. Não perca tempo com dúvidas: consuma o conteúdo, aplique na prática e garanta a satisfação do cliente na primeira visita.",
-            match: "Obrigatório",
+            subtitle: "Treinamento Prático da Operação",
+            description: "O Brisaflix é o treinamento de aprendizagem prática da operação, criado para desenvolver e reciclar habilidades técnicas essenciais de forma rápida, objetiva e conectada à realidade do campo.",
+            longDescription: "É uma metodologia de aprendizagem baseada em conteúdos curtos, focados e altamente práticos, pensados para serem consumidos rapidamente e aplicados imediatamente no trabalho. O objetivo é garantir que cada técnico tenha acesso rápido ao conhecimento que resolve problemas.",
+            match: "Essencial",
             year: "2024",
-            tags: ["Técnica", "Qualidade", "Zero Recorrência"],
-            image: "https://raw.githubusercontent.com/gilnei-ship-it/brisaflix/main/imgens/data-center-engineer-uses-ai-visualization-tool-on-2025-11-30-14-38-26-utc.jpg",
-            cast: ["Técnicos", "Supervisores", "Auditores"],
-            director: "Diretoria de Operações",
-            genre: "Treinamento Corporativo",
-            link: "https://brisanet.teste.konviva.com.br/lms/#/aprendizagem/trilha/6"
+            tags: ["Prático", "Objetivo", "Conectado"],
+            image: "bg-gradient-to-r from-blue-700 to-blue-900",
+            cast: ["Técnicos", "Operação", "Campo"],
+            director: "Treinamento Operacional",
+            genre: "Capacitação Técnica"
         };
 
         const categories = [
@@ -525,7 +524,7 @@
                                     className={`h-10 md:h-12 cursor-pointer select-none object-contain transition-all duration-300 hover:scale-105 active:scale-95 ${!isScrolled ? 'logo-hover' : ''}`}
                                     onError={(e) => { e.target.style.display = 'none'; }}
                                 />
-                                <span className={`md:hidden font-bold text-lg ${isScrolled ? 'text-[#2242D4]' : 'text-white'}`}>BRISAFLIX</span>
+                                {/* Texto removido para evitar duplicação com a logo no mobile */}
                             </div>
                             
                             {/* Menu Desktop (Links) */}
@@ -566,15 +565,10 @@
                         </div>
                     </div>
 
-                    {/* Menu Mobile Lateral (Off-canvas) - AQUI ESTÁ A CORREÇÃO PRINCIPAL */}
-                    {/* Usamos 'invisible' quando fechado para evitar o clique fantasma e garantir que suma do DOM visualmente */}
-                    <div className={`fixed inset-0 z-[100] transition-all duration-300 md:hidden ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
-                        {/* Overlay Escuro */}
-                        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsMobileMenuOpen(false)}></div>
-                        
-                        {/* Sidebar Branca */}
+                    {/* Menu Mobile Lateral (Off-canvas) */}
+                    <div className={`fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm transition-opacity duration-300 md:hidden ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={() => setIsMobileMenuOpen(false)}>
                         <div 
-                            className={`absolute left-0 top-0 h-full w-[80%] max-w-[300px] bg-white shadow-2xl transform transition-transform duration-300 flex flex-col p-6 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
+                            className={`absolute left-0 top-0 h-full w-[75%] max-w-xs bg-[#f5f5f5] shadow-2xl transform transition-transform duration-300 flex flex-col p-6 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
                             onClick={(e) => e.stopPropagation()}
                         >
                            <div className="flex items-center justify-between mb-8">
